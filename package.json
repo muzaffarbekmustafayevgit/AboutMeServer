@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend end points for About Me frontend",
+  "homepage": "https://github.com/muzaffarbekmustafayevgit/AboutMeServer#readme",
+  "bugs": {
+    "url": "https://github.com/muzaffarbekmustafayevgit/AboutMeServer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muzaffarbekmustafayevgit/AboutMeServer.git"
+  },
+  "license": "ISC",
+  "author": "Muzaffarbek",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "nodemon server.js",
+    "generate-readme": "node generate-readme.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "nodemailer": "^7.0.4",
+    "nodemon": "^3.1.10"
+  }
+}
