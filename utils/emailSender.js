@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const sendActivationEmail = async (to, code) => {
+async function sendActivationEmail(to, code) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -18,6 +18,6 @@ const sendActivationEmail = async (to, code) => {
   };
 
   await transporter.sendMail(mailOptions);
-};
+}
 
 module.exports = { sendActivationEmail };

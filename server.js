@@ -1,12 +1,19 @@
 const express = require("express");
+const cors = require("cors"); // 🧩 CORS ulandi
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const listEndpoints = require("express-list-endpoints"); // 🔍 Qo‘shildi
+const listEndpoints = require("express-list-endpoints");
 
 dotenv.config();
 const app = express();
 connectDB();
 app.use(express.json());
+
+// ✅ CORS sozlandi
+app.use(cors({
+  origin: "http://localhost:5173", // Frontend manzili, kerak bo‘lsa "*" yoki boshqa domen yozing
+  credentials: true,
+}));
 
 // 📦 Routelar
 const authRoutes = require("./routes/authRoutes");
@@ -35,7 +42,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server ${PORT}-portda ishlamoqda`);
 
-  // 🔍 Barcha endpointlar ro‘yxatini ko‘rsatadi
   const endpoints = listEndpoints(app);
   console.log("\n📜 API ROUTES RO‘YXATI:");
   endpoints.forEach((ep) => {
