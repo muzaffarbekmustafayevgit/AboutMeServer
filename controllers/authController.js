@@ -75,19 +75,34 @@ const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user || !user.isActive)
-      return res
-        .status(400)
-        .json({ message: "Email topilmadi yoki aktiv emas" });
+    if (!user)
+      return res.status(400).json({ message: "Email topilmadi" });
+
+    if (!user.isActive)
+      return res.status(403).json({ message: "Hisob aktiv emas, iltimos emailni tasdiqlang" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Parol noto‘g‘ri" });
+    if (!isMatch)
+      return res.status(401).json({ message: "Parol noto‘g‘ri" });
 
     const token = generateToken(user);
-    return res.json({ message: "Kirish muvaffaqiyatli", token });
+
+    return res.status(200).json({
+      message: "Kirish muvaffaqiyatli",
+      token,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+
   } catch (err) {
-    return res.status(500).json({ message: "Xatolik", error: err.message });
+    console.error("Login xatoligi:", err);
+    return res.status(500).json({
+      message: "Serverda xatolik yuz berdi",
+      error: err.message,
+    });
   }
 };
+
 
 module.exports = { signup, login, activateAccount };
