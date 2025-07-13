@@ -1,3 +1,5 @@
+
+// controllers/materialController.js
 const Material = require("../models/Material");
 
 exports.uploadMaterial = async (req, res) => {

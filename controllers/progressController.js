@@ -1,6 +1,7 @@
+
+// controllers/progressController.js
 const UserProgress = require("../models/UserProgress");
 
-// 1. Darsni tugallashni saqlash
 exports.markLessonComplete = async (req, res) => {
   const { courseId, lessonId } = req.body;
   const userId = req.user.id;
@@ -28,7 +29,6 @@ exports.markLessonComplete = async (req, res) => {
   }
 };
 
-// 2. Kursdagi yutuqlarni olish
 exports.getUserProgress = async (req, res) => {
   const { userId, courseId } = req.params;
 
@@ -36,7 +36,7 @@ exports.getUserProgress = async (req, res) => {
     const progress = await UserProgress.findOne({ userId, courseId })
       .populate("completedLessons", "title")
       .populate("courseId", "title");
-    
+
     if (!progress) {
       return res.status(404).json({ message: "Yutuqlar topilmadi" });
     }

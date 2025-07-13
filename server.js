@@ -23,6 +23,17 @@ const lessonRoutes = require("./routes/lessonRoutes");
 const quizRoutes = require("./routes/quizRoutes");
 const materialRoutes = require("./routes/materialRoutes");
 const progressRoutes = require("./routes/progressRoutes");
+const errorHandler = require("./middlewares/errorHandler");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+app.use(errorHandler); // Har doim route’lardan so‘ng
+app.use(helmet());
+app.use(morgan("dev")); // yoki "combined"
+app.use((req, res, next) => {
+  res.status(404).json({ message: "🔍 Bunday route topilmadi!" });
+});
+app.use(cookieParser());
 
 // 🔗 Ulash
 app.use("/api/auth", authRoutes);

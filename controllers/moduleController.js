@@ -1,3 +1,4 @@
+// controllers/moduleController.js
 const Module = require("../models/Module");
 
 exports.createModule = async (req, res) => {
@@ -20,9 +21,7 @@ exports.getModulesByCourse = async (req, res) => {
 
 exports.updateModule = async (req, res) => {
   try {
-    const updated = await Module.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updated = await Module.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: err.message });

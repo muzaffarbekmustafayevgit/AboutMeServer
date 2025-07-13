@@ -1,3 +1,5 @@
+
+// controllers/quizController.js
 const Quiz = require("../models/Quiz");
 
 exports.createQuiz = async (req, res) => {
@@ -20,9 +22,7 @@ exports.getQuizzesByLesson = async (req, res) => {
 
 exports.updateQuiz = async (req, res) => {
   try {
-    const updated = await Quiz.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updated = await Quiz.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: err.message });
