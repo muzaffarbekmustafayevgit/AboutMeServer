@@ -1,4 +1,3 @@
-// controllers/courseController.js
 const Course = require("../models/Course");
 
 exports.createCourse = async (req, res) => {
@@ -13,14 +12,12 @@ exports.createCourse = async (req, res) => {
 exports.getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find();
-    res.json(courses); // ✅ Object emas, to‘g‘ridan-to‘g‘ri array qaytaryapti
+    res.json(courses);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-
-// 📄 controllers/courseController.js
 exports.updateCourse = async (req, res) => {
   try {
     const updated = await Course.findByIdAndUpdate(req.params.id, req.body, {
@@ -30,6 +27,18 @@ exports.updateCourse = async (req, res) => {
       return res.status(404).json({ message: "Kurs topilmadi" });
     }
     res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.deleteCourse = async (req, res) => {
+  try {
+    const deleted = await Course.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ message: "Kurs topilmadi" });
+    }
+    res.json({ message: "Kurs muvaffaqiyatli o‘chirildi", course: deleted });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
